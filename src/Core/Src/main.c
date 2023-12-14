@@ -99,8 +99,11 @@ int main(void)
   {
     /* USER CODE END WHILE */
 		//1号ID的电机，逆时针转，2号ID的电机，顺时针转
-		Motor_Rotate(1,1800,1000);
+		Motor_Rotate(1,1150,1000);
+    
 		Motor_Rotate(2,1150,1000);
+    Motor_Rotate(3,1150,1000);
+		Motor_Rotate(4,1150,1000);
 		
 		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
 		HAL_Delay(2000);
