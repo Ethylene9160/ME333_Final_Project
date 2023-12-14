@@ -14,6 +14,8 @@ typedef struct{
     float Output;		//output
 }PIDer;
 
+void initPID(PIDer* this, float P, float I, float D);
+
 #ifdef __cplusplus
 }
 #endif

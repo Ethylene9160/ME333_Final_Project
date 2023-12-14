@@ -21,43 +21,41 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+#include "PID.h"
+#include "MyMotor.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
 
-/* USER CODE END Includes */
+MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
+MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
+PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
+void initAllMotors();
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+int v2pwm(float v);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
+
+void Base_Motor_Rotate(MyMotor* const motor);
+
+void My_Motor_Rotate(MyMotor* const motor, int pwm, int time);
+
+void Turn_Left();
+
+void Turn_Right();
+
+void Turn_Back();
+
+void Forward();
 
 /**
   * @brief  The application entry point.
@@ -99,6 +97,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 		//1号ID的电机，逆时针转，2号ID的电机，顺时针转
+    
 		Motor_Rotate(1,1150,1000);
     
 		Motor_Rotate(2,1150,1000);
@@ -186,6 +185,43 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
+void Base_Motor_Rotate(MyMotor*const motor){
+  //todo: 把v映射到pwm
+  //int pwm = (int)motor->vx*100;
+  My_Motor_Rotate(motor, v2pwm(motor->vx), 500);
+}
+
+void My_Motor_Rotate(MyMotor*const motor, int pwm, int time){
+  Motor_Rotate(motor->MotorID, pwm, time);
+}
+
+void initAllMotors(){
+    initPID(&leftforwardPider, 0.0, 0.0, 0.0);
+    initPID(&leftbackwardPider, 0.0, 0.0, 0.0);
+    initPID(&rightforwardPider, 0.0, 0.0, 0.0);
+    initPID(&rightbackwardPider, 0.0, 0.0, 0.0);
+    initMotor(&leftforwardMotor, 1, &leftforwardPider);
+    initMotor(&leftbackwardMotor, 2, &leftbackwardPider);
+    initMotor(&rightforwardMotor, 3, &rightforwardPider);
+    initMotor(&rightbackwardMotor, 4, &rightbackwardPider);
+}
+
+void Forward(){
+  int i;
+    leftforwardMotor.vx = 1.0;
+    leftbackwardMotor.vx = 1.0;
+    rightforwardMotor.vx = 1.0;
+    rightbackwardMotor.vx = 1.0;
+    //todo v -> pwm
+    for(i=0;i<4;++i){
+        Base_Motor_Rotate(motors[i]);
+    }
+}
+
+int v2pwm(float v){
+  return (int)(100*v);
+}
+
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
@@ -201,6 +237,8 @@ void assert_failed(uint8_t *file, uint32_t line)
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
+
+
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
