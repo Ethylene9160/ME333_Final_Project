@@ -41,6 +41,12 @@
                     "path": "../Core/Src/main.c"
                   },
                   {
+                    "path": "../Core/Src/MyMotor.c"
+                  },
+                  {
+                    "path": "../Core/Src/PID.c"
+                  },
+                  {
                     "path": "../Core/Src/stm32f7xx_hal_msp.c"
                   },
                   {

@@ -1,8 +1,7 @@
-#include"MyMotor.h"
-#include"PID.h"
+
 #ifndef MY_MOTOR
 #define MY_MOTOR 1
-
+#include"PID.h"
 #ifdef __cplusplus
 extern "C"{
 #endif

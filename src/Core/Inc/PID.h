@@ -14,9 +14,6 @@ typedef struct{
     float Output;		//output
 }PIDer;
 
-void smoothControl(PIDer* this, float targetV);
-
-
 #ifdef __cplusplus
 }
 #endif
