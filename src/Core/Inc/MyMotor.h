@@ -4,10 +4,10 @@
 #include "usart.h"
 #include"PID.h"
 //define the id of the 4 motors
-#define LEFT_FORWARD 2
-#define RIGHT_FORWARD 1
-#define LEFT_BACKWARD 3
-#define RIGHT_BACKWARD 4
+#define LEFT_FORWARD 2//motor of left forward
+#define RIGHT_FORWARD 1//motor of right forward
+#define LEFT_BACKWARD 3//motor of left backward
+#define RIGHT_BACKWARD 4//motor of right backward
 #ifdef __cplusplus
 extern "C"{
 #endif

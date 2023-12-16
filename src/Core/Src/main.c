@@ -58,6 +58,8 @@ void Turn_Back();
 
 void Forward();
 
+void Move();
+
 /**
   * @brief  The application entry point.
   * @retval int
@@ -182,7 +184,8 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+  //报错也给我跑！！！
+  main();
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -203,22 +206,38 @@ void initAllMotors(){
     initPID(&rightforwardPider, 0.0, 0.0, 0.0);
     initPID(&rightbackwardPider, 0.0, 0.0, 0.0);
 
-    initMotor(&leftforwardMotor, 1, &leftforwardPider);
-    initMotor(&leftbackwardMotor, 2, &leftbackwardPider);
-    initMotor(&rightforwardMotor, 3, &rightforwardPider);
-    initMotor(&rightbackwardMotor, 4, &rightbackwardPider);
+    initMotor(&leftforwardMotor, LEFT_FORWARD, &leftforwardPider);
+    initMotor(&leftbackwardMotor, LEFT_BACKWARD, &leftbackwardPider);
+    initMotor(&rightforwardMotor, RIGHT_FORWARD, &rightforwardPider);
+    initMotor(&rightbackwardMotor, RIGHT_BACKWARD, &rightbackwardPider);
 }
 
 void Forward(){
+  leftforwardMotor.vx = 1.0;
+  leftbackwardMotor.vx = 1.0;
+  rightforwardMotor.vx = 1.0;
+  rightbackwardMotor.vx = 1.0;
+}
+
+void Turn_Back(){
+  leftforwardMotor.vx = -1.0;
+  leftbackwardMotor.vx = -1.0;
+  rightforwardMotor.vx = -1.0;
+  rightbackwardMotor.vx = -1.0;
+}
+
+void Turn_Left(){
+  leftforwardMotor.vx = -1.0;
+  leftbackwardMotor.vx = -1.0;
+  rightforwardMotor.vx = 1.0;
+  rightbackwardMotor.vx = 1.0;
+}
+
+void Move(){
   int i;
-    leftforwardMotor.vx = 1.0;
-    leftbackwardMotor.vx = 1.0;
-    rightforwardMotor.vx = 1.0;
-    rightbackwardMotor.vx = 1.0;
-    //todo v -> pwm
-    for(i=0;i<4;++i){
-        Base_Motor_Rotate(motors[i]);
-    }
+  for(i = 0; i < 4; i++){
+    Base_Motor_Rotate(*(motors+i));
+  }
 }
 
 int v2pwm(float v){
