@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
+#include "Controller.hpp"
 
 MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
 MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
@@ -196,10 +197,12 @@ void My_Motor_Rotate(MyMotor*const motor, int pwm, int time){
 }
 
 void initAllMotors(){
+    //todo: adjust pid
     initPID(&leftforwardPider, 0.0, 0.0, 0.0);
     initPID(&leftbackwardPider, 0.0, 0.0, 0.0);
     initPID(&rightforwardPider, 0.0, 0.0, 0.0);
     initPID(&rightbackwardPider, 0.0, 0.0, 0.0);
+
     initMotor(&leftforwardMotor, 1, &leftforwardPider);
     initMotor(&leftbackwardMotor, 2, &leftbackwardPider);
     initMotor(&rightforwardMotor, 3, &rightforwardPider);
