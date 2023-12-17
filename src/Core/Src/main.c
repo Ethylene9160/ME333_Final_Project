@@ -21,8 +21,10 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+
 #include "PID.h"
 #include "MyMotor.h"
+#include "MyDetector.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -32,8 +34,16 @@
 MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
 MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
 PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
-
+MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmiddleDetector, rightrightDetector;
 void initAllMotors();
+
+void initAllDetectors(){
+    initDetector(&leftleftDetector, LEFT_LEFT);
+    initDetector(&leftmiddleDetector, LEFT_MIDDLE);
+    initDetector(&middlemiddleDetector, MIDDLE_MIDDLE);
+    initDetector(&rightmiddleDetector, RIGHT_MIDDLE);
+    initDetector(&rightrightDetector, RIGHT_RIGHT);
+}
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -50,6 +60,7 @@ void Base_Motor_Rotate(MyMotor* const motor);
 
 void My_Motor_Rotate(MyMotor* const motor, int pwm, int time);
 
+//注意，下面的四个函数，只会修改电机的速度，不会马上转动电机。
 void Turn_Left();
 
 void Turn_Right();
@@ -58,7 +69,12 @@ void Turn_Back();
 
 void Forward();
 
+//需要调用下面的函数，才会真正转动电机。
 void Move();
+
+void detectMove();
+
+u8 isEnd();
 
 /**
   * @brief  The application entry point.
@@ -90,26 +106,47 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  //check: whether init successfully or not.
+  initAllMotors();
+  initAllDetectors();
   /* USER CODE BEGIN 2 */
 	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  static int counter = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 		//1号ID的电机，逆时针转，2号ID的电机，顺时针转
-    
-		Motor_Rotate(1,1150,1000);
-    
-		Motor_Rotate(2,1150,1000);
-    Motor_Rotate(3,1150,1000);
-		Motor_Rotate(4,1150,1000);
+
+    /*测试运动功能*/
+    switch(counter){
+      case 0:
+        Forward();
+        break;
+      case 1:
+        Turn_Left();
+        break;
+      case 2:
+        Turn_Right();
+        break;
+      case 3:
+        Turn_Back();
+        break;
+    }
+    ++coounter;
+    /*运动功能测试结束*/
+    //如果上面的测试没有问题，那么注释掉上面的测试代码。然后，将下面的注释取消，开始测试寻线。
+    //detectMove();
+    Move();
 		
 		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
 		HAL_Delay(2000);
-		
+		if(isEnd()){
+      break;
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -241,7 +278,37 @@ void Move(){
 }
 
 int v2pwm(float v){
+  //todo: override this function.
   return (int)(100*v);
+}
+
+//先读内侧，再往外读取。
+void detectMove(){
+  if (digitalRead(&middlemiddleDetector) == 1){
+    //前进
+    Forward();
+  }else if (digitalRead(&leftmiddleDetector) == 1){
+    //左转
+    Turn_Left();
+  }else if (digitalRead(&rightmiddleDetector) == 1){
+    //右转
+    Turn_Right();
+  }else if (digitalRead(&leftleftDetector) == 1){
+    //左转
+    Turn_Left();
+  }else if (digitalRead(&rightrightDetector) == 1){
+    //右转
+    Turn_Right();
+  }else{
+    //直走
+    Forward();
+  }
+
+}
+
+u8 isEnd(){
+  // todo: 根据颜色传感器判断是否走到了终点。
+  return 0;
 }
 
 #ifdef  USE_FULL_ASSERT
