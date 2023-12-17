@@ -38,11 +38,11 @@ MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmidd
 void initAllMotors();
 
 void initAllDetectors(){
-    initDetector(&leftleftDetector, LEFT_LEFT);
-    initDetector(&leftmiddleDetector, LEFT_MIDDLE);
-    initDetector(&middlemiddleDetector, MIDDLE_MIDDLE);
-    initDetector(&rightmiddleDetector, RIGHT_MIDDLE);
-    initDetector(&rightrightDetector, RIGHT_RIGHT);
+    initDetector(&leftleftDetector, LEFT_LEFT, GPIOB);
+    initDetector(&leftmiddleDetector, LEFT_MIDDLE,GPIOB);
+    initDetector(&middlemiddleDetector, MIDDLE_MIDDLE,GPIOB);
+    initDetector(&rightmiddleDetector, RIGHT_MIDDLE,GPIOB);
+    initDetector(&rightrightDetector, RIGHT_RIGHT,GPIOB);
 }
 
 /* Private function prototypes -----------------------------------------------*/
@@ -74,7 +74,7 @@ void Move();
 
 void detectMove();
 
-u8 isEnd();
+uint8_t isEnd();
 
 /**
   * @brief  The application entry point.
@@ -117,14 +117,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  static int counter = 0;
+  static int my_counter = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 		//1号ID的电机，逆时针转，2号ID的电机，顺时针转
 
     /*测试运动功能*/
-    switch(counter){
+    switch(++my_counter){
       case 0:
         Forward();
         break;
@@ -136,9 +136,9 @@ int main(void)
         break;
       case 3:
         Turn_Back();
+        my_counter = 0;
         break;
     }
-    ++coounter;
     /*运动功能测试结束*/
     //如果上面的测试没有问题，那么注释掉上面的测试代码。
     //然后，在接好寻线传感器并正确配置引脚的情况下，将下面的注释取消，开始测试寻线。
@@ -273,6 +273,13 @@ void Turn_Left(){
   rightbackwardMotor.vx = 1.0;
 }
 
+void Turn_Right(){
+  leftforwardMotor.vx = 1.0;
+  leftbackwardMotor.vx = 1.0;
+  rightforwardMotor.vx = -1.0;
+  rightbackwardMotor.vx = -1.0;
+}
+
 void Move(){
   int i;
   for(i = 0; i < 4; i++){
@@ -309,7 +316,7 @@ void detectMove(){
 
 }
 
-u8 isEnd(){
+uint8_t isEnd(){
   // todo: 根据颜色传感器判断是否走到了终点。
   return 0;
 }
