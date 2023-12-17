@@ -10,6 +10,7 @@ typedef struct{
     
 }MyDetector;
 
+// TODO: change the pin!!!
 #define LEFT_LEFT 0
 #define LEFT_MIDDLE 1
 #define MIDDLE_MIDDLE 2

@@ -108,7 +108,9 @@ int main(void)
   MX_USART2_UART_Init();
   //check: whether init successfully or not.
   initAllMotors();
-  initAllDetectors();
+
+  //这里还没init好，为了避免引脚冲突，先注释掉。
+  //initAllDetectors();
   /* USER CODE BEGIN 2 */
 	
   /* USER CODE END 2 */
@@ -138,7 +140,8 @@ int main(void)
     }
     ++coounter;
     /*运动功能测试结束*/
-    //如果上面的测试没有问题，那么注释掉上面的测试代码。然后，将下面的注释取消，开始测试寻线。
+    //如果上面的测试没有问题，那么注释掉上面的测试代码。
+    //然后，在接好寻线传感器并正确配置引脚的情况下，将下面的注释取消，开始测试寻线。
     //detectMove();
     Move();
 		
