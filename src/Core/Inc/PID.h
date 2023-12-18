@@ -11,7 +11,7 @@ typedef struct{
     float LastError;	//last error
     float PrevError;	//last last error
     float SumError;		//error accumulation
-    float Output;		//output
+    float currentV;        //current velocity   
 }PIDer;
 
 void initPID(PIDer* this, float P, float I, float D);

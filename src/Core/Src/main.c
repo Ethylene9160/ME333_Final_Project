@@ -22,57 +22,31 @@
 #include "usart.h"
 #include "gpio.h"
 
+
+
+/* Private includes ----------------------------------------------------------*/
+
+/* USER CODE BEGIN Includes */
+#include "stdio.h"
 #include "PID.h"
 #include "MyMotor.h"
 #include "MyDetector.h"
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include "stdio.h"
-#include "Controller.hpp"
-
-MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
-MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
-PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
-MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmiddleDetector, rightrightDetector;
-void initAllMotors();
-
-void initAllDetectors(){
-    initDetector(&leftleftDetector, LEFT_LEFT, GPIOB);
-    initDetector(&leftmiddleDetector, LEFT_MIDDLE,GPIOB);
-    initDetector(&middlemiddleDetector, MIDDLE_MIDDLE,GPIOB);
-    initDetector(&rightmiddleDetector, RIGHT_MIDDLE,GPIOB);
-    initDetector(&rightrightDetector, RIGHT_RIGHT,GPIOB);
-}
-
+/* USER CODE END Includes */
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-int v2pwm(float v);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
+MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
+PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
 
+
+MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmiddleDetector, rightrightDetector;
 /* USER CODE END 0 */
-
-void Base_Motor_Rotate(MyMotor* const motor);
-
-void My_Motor_Rotate(MyMotor* const motor, int pwm, int time);
-
-//注意，下面的四个函数，只会修改电机的速度，不会马上转动电机。
-void Turn_Left();
-
-void Turn_Right();
-
-void Turn_Back();
-
-void Forward();
-
-//需要调用下面的函数，才会真正转动电机。
-void Move();
-
-void detectMove();
 
 uint8_t isEnd();
 
@@ -107,50 +81,35 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   //check: whether init successfully or not.
-  initAllMotors();
-
+  
   //这里还没init好，为了避免引脚冲突，先注释掉。
-  //initAllDetectors();
+  
   /* USER CODE BEGIN 2 */
-	
+	initAllMotors();
+  initAllDetectors();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  static int my_counter = 0;
+
   while (1)
   {
-    /* USER CODE END WHILE */
-		//1号ID的电机，逆时针转，2号ID的电机，顺时针转
-
-    /*测试运动功能*/
-    switch(++my_counter){
-      case 0:
-        Forward();
-        break;
-      case 1:
-        Turn_Left();
-        break;
-      case 2:
-        Turn_Right();
-        break;
-      case 3:
-        Turn_Back();
-        my_counter = 0;
-        break;
-    }
+    
     /*运动功能测试结束*/
     //如果上面的测试没有问题，那么注释掉上面的测试代码。
     //然后，在接好寻线传感器并正确配置引脚的情况下，将下面的注释取消，开始测试寻线。
-    //detectMove();
+    
+    /* USER CODE BEGIN 3 */
+    detectMove();
+    // Turn_Left();
     Move();
+
 		
 		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
-		HAL_Delay(2000);
+		// HAL_Delay(2000);
 		if(isEnd()){
       break;
     }
-    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -213,6 +172,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+uint8_t isEnd(){
+  // todo: 根据颜色传感器判断是否走到了终点。
+  return 0;
+}
 
 /* USER CODE END 4 */
 
@@ -229,97 +192,8 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-void Base_Motor_Rotate(MyMotor*const motor){
-  //todo: 把v映射到pwm
-  //int pwm = (int)motor->vx*100;
-  My_Motor_Rotate(motor, v2pwm(motor->vx), 500);
-}
 
-void My_Motor_Rotate(MyMotor*const motor, int pwm, int time){
-  Motor_Rotate(motor->MotorID, pwm, time);
-}
 
-void initAllMotors(){
-    //todo: adjust pid
-    initPID(&leftforwardPider, 0.0, 0.0, 0.0);
-    initPID(&leftbackwardPider, 0.0, 0.0, 0.0);
-    initPID(&rightforwardPider, 0.0, 0.0, 0.0);
-    initPID(&rightbackwardPider, 0.0, 0.0, 0.0);
-
-    initMotor(&leftforwardMotor, LEFT_FORWARD, &leftforwardPider);
-    initMotor(&leftbackwardMotor, LEFT_BACKWARD, &leftbackwardPider);
-    initMotor(&rightforwardMotor, RIGHT_FORWARD, &rightforwardPider);
-    initMotor(&rightbackwardMotor, RIGHT_BACKWARD, &rightbackwardPider);
-}
-
-void Forward(){
-  leftforwardMotor.vx = 1.0;
-  leftbackwardMotor.vx = 1.0;
-  rightforwardMotor.vx = 1.0;
-  rightbackwardMotor.vx = 1.0;
-}
-
-void Turn_Back(){
-  leftforwardMotor.vx = -1.0;
-  leftbackwardMotor.vx = -1.0;
-  rightforwardMotor.vx = -1.0;
-  rightbackwardMotor.vx = -1.0;
-}
-
-void Turn_Left(){
-  leftforwardMotor.vx = -1.0;
-  leftbackwardMotor.vx = -1.0;
-  rightforwardMotor.vx = 1.0;
-  rightbackwardMotor.vx = 1.0;
-}
-
-void Turn_Right(){
-  leftforwardMotor.vx = 1.0;
-  leftbackwardMotor.vx = 1.0;
-  rightforwardMotor.vx = -1.0;
-  rightbackwardMotor.vx = -1.0;
-}
-
-void Move(){
-  int i;
-  for(i = 0; i < 4; i++){
-    Base_Motor_Rotate(*(motors+i));
-  }
-}
-
-int v2pwm(float v){
-  //todo: override this function.
-  return (int)(100*v);
-}
-
-//先读内侧，再往外读取。
-void detectMove(){
-  if (digitalRead(&middlemiddleDetector) == 1){
-    //前进
-    Forward();
-  }else if (digitalRead(&leftmiddleDetector) == 1){
-    //左转
-    Turn_Left();
-  }else if (digitalRead(&rightmiddleDetector) == 1){
-    //右转
-    Turn_Right();
-  }else if (digitalRead(&leftleftDetector) == 1){
-    //左转
-    Turn_Left();
-  }else if (digitalRead(&rightrightDetector) == 1){
-    //右转
-    Turn_Right();
-  }else{
-    //直走
-    Forward();
-  }
-
-}
-
-uint8_t isEnd(){
-  // todo: 根据颜色传感器判断是否走到了终点。
-  return 0;
-}
 
 #ifdef  USE_FULL_ASSERT
 /**
