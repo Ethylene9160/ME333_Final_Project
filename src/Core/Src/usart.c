@@ -42,7 +42,6 @@ void UART2_Send(uint8_t *Data, uint16_t Size)
 //重定义 fputc 函数，利用HAL库函数发送。
 int fputc(int ch,FILE *f)
 {
-	
 	uint8_t temp = ch;
 	HAL_UART_Transmit(&huart1,&temp,1,1000);
 	while(__HAL_UART_GET_FLAG(&huart1,UART_FLAG_TXE)!=SET);

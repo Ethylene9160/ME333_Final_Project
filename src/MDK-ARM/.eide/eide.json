@@ -59,6 +59,9 @@
                     "path": "../Core/Src/stm32f7xx_it.c"
                   },
                   {
+                    "path": "../Core/Src/tim.c"
+                  },
+                  {
                     "path": "../Core/Src/usart.c"
                   }
                 ],

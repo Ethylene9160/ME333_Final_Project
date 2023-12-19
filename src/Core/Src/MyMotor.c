@@ -7,10 +7,10 @@ void initMotor(MyMotor* this, int MotorID, PIDer* pider){
 
 void initAllMotors(){
     //todo: adjust pid
-    initPID(&leftforwardPider, 1.2, 0.35, 0.0);
-    initPID(&leftbackwardPider, 1.2, 0.35, 0.0);
-    initPID(&rightforwardPider, 1.2, 0.35, 0.0);
-    initPID(&rightbackwardPider, 1.2, 0.35, 0.0);
+    initPID(&leftforwardPider, 1.2, 0.1, 0.0);
+    initPID(&leftbackwardPider, 1.2, 0.1, 0.0);
+    initPID(&rightforwardPider, 1.2, 0.1, 0.0);
+    initPID(&rightbackwardPider, 1.2, 0.1, 0.0);
 
     initMotor(&leftforwardMotor, LEFT_FORWARD, &leftforwardPider);
     initMotor(&leftbackwardMotor, LEFT_BACKWARD, &leftbackwardPider);
@@ -28,14 +28,14 @@ void smoothControl(MyMotor* this, float targetV){
 
 void piControl(MyMotor* this){
     //this->pider->currentV = this->targetV;
-    static float step = 0.1;
-    if(this->targetV > this->pider->currentV){
-        this->pider->currentV += step;
-    }else if(this->targetV < this->pider->currentV){
-        this->pider->currentV -= step;
-    }
-    this->pider->currentV = this->targetV;
-    return; 
+    // static float step = 0.1;
+    // if(this->targetV > this->pider->currentV){
+    //     this->pider->currentV += step;
+    // }else if(this->targetV < this->pider->currentV){
+    //     this->pider->currentV -= step;
+    // }
+    // this->pider->currentV = this->targetV;
+    // return; 
     float error = this->targetV - this->pider->currentV;
     this->pider->SumError += error;
     this->pider->currentV = this->pider->P * error + this->pider->I * this->pider->SumError;
@@ -82,6 +82,13 @@ void Move(){
   Base_Motor_Rotate(&rightbackwardMotor);
 }
 
+void TimeMove(int time){
+  private_Base_Motor_Rotate(&leftforwardMotor, time);
+  private_Base_Motor_Rotate(&leftbackwardMotor, time);
+  private_Base_Motor_Rotate(&rightforwardMotor, time);
+  private_Base_Motor_Rotate(&rightbackwardMotor, time);
+}
+
 int v2pwm(float v){
   //todo: override this function.
   
@@ -100,15 +107,37 @@ void Stop(){
   rightbackwardMotor.targetV = 0.0;
 }
 
-
-
 void Base_Motor_Rotate(MyMotor*const motor){
-  //todo: °ÑvÓ³Éäµ½pwm
-  //int pwm = (int)motor->targetV*100;
-  piControl(motor);
-  My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 1000);
+    int i;
+    for(i = 0; i < 40; ++i){
+        piControl(motor);
+        My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 20);
+    }
+    // In fact, we do not have any speed encoder, 
+    // so after the motor is rotated, we need to force set the current velosity
+    // to the target velosity, 
+    // and leave enough time for the motor to run into the stable state.
+    motor->pider->currentV = motor->targetV;
+    My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 200);
+}
+
+void private_Base_Motor_Rotate(MyMotor*const motor, int time){
+    int i;
+    int period = 20;
+    int i_max = time / period-4;
+    
+    for(i = 0; i < i_max; ++i){
+        piControl(motor);
+        My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), period);
+    }
+    // In fact, we do not have any speed encoder, 
+    // so after the motor is rotated, we need to force set the current velosity
+    // to the target velosity, 
+    // and leave enough time for the motor to run into the stable state.
+    motor->pider->currentV = motor->targetV;
+    My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), period<<2);
 }
 
 void My_Motor_Rotate(MyMotor*const motor, int pwm, int time){
-  Motor_Rotate(motor->MotorID, pwm, time);
+    Motor_Rotate(motor->MotorID, pwm, time);
 }
