@@ -1,0 +1,73 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.29.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 阿撑, 1, LIC=14HV2-9GRG9-AR7XW-QHH9N-JDCAZ-EUKWL
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.29.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.13.1
+Assembler:       Armasm.exe V6.13.1
+Linker/Locator:  ArmLink.exe V6.13.1
+Library Manager: ArmAr.exe V6.13.1
+Hex Converter:   FromElf.exe V6.13.1
+CPU DLL:         SARMCM3.DLL V5.29.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TCM.DLL V1.36.5.0
+ 
+<h2>Project:</h2>
+C:\Users\阿撑\Desktop\机电一体化系统\lab\project\STM32F7-Motor-Test-1\MDK-ARM\Motor-Test-1.uvprojx
+Project File Date:  12/21/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.13.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Motor-Test-1'
+../Core/Src/main.c(21): warning: In file included from...
+../Core/Inc\main.h(31): warning: In file included from...
+../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal.h(29): warning: In file included from...
+../Core/Inc\stm32f7xx_hal_conf.h(270): warning: In file included from...
+../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rcc.h(27): warning: In file included from...
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h(30): warning: In file included from...
+../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h(3994): warning: 'ART_ACCLERATOR_ENABLE' macro redefined [-Wmacro-redefined]
+#define ART_ACCLERATOR_ENABLE ART_ACCELERATOR_ENABLE
+        ^
+../Core/Inc\stm32f7xx_hal_conf.h(151): note: previous definition is here
+#define  ART_ACCLERATOR_ENABLE        1U /* To enable instruction cache and prefetch */
+         ^
+1 warning generated.
+compiling main.c...
+linking...
+Program Size: Code=13640 RO-data=560 RW-data=16 ZI-data=1488  
+FromELF: creating hex file...
+"Motor-Test-1\Motor-Test-1.axf" - 0 Error(s), 1 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
+                ARM.CMSIS.5.6.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.3.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F7xx_DFP.2.7.0.pack
+                Keil.STM32F7xx_DFP.2.7.0
+                STMicroelectronics STM32F7 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Motor-Test-1
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.3.0
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
