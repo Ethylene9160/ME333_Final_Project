@@ -1,6 +1,1 @@
-{
-    "eide.default.compiler": "armclang",
-    "eide.options.compiler.c": ["-std=c99"],
-    "eide.options.compiler.cpp": ["-std=c++11"]
-}
-  
+{}

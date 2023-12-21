@@ -1,24 +1,26 @@
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * File Name          : gpio.c
-  * Description        : This file provides code for the configuration
-  *                      of all used GPIO pins.
+  * @file    gpio.c
+  * @brief   This file provides code for the configuration
+  *          of all used GPIO pins.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+/* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
+
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
@@ -27,8 +29,7 @@
 /* Configure GPIO                                                             */
 /*----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-//¬À≤®∆˜ƒ£ Ω—°‘Ò∫Ø ˝£¨∏˘æ›S2∫ÕS3µƒµÁŒª¿¥—°‘Ò∫Ï°¢¬Ã°¢¿∂»˝÷÷—’…´µƒ¬À≤®∆˜
-
+//Êª§Ê≥¢Âô®Ê®°ÂºèÈÄâÊã©ÂáΩÊï∞ÔºåÊ†πÊçÆS2ÂíåS3ÁöÑÁîµ‰ΩçÊù•ÈÄâÊã©Á∫¢„ÄÅÁªø„ÄÅËìù‰∏âÁßçÈ¢úËâ≤ÁöÑÊª§Ê≥¢Âô®
 void filter(int s2, int s3)
 {
 	if(s2 == 0 && s3 == 0){
@@ -50,11 +51,10 @@ int count = 0;
 
 void TCS_Next(int s2, int s3)
 {
-	count = 0;	//Õ≥º∆¬ˆ≥Â ˝«Â¡„
-	flag++;		// ‰≥ˆ–≈∫≈º∆ ˝±Í÷æ+1£¨Ω¯––œ¬“ª∏ˆ—’…´µƒ¬ˆ≥ÂÕ≥º∆
-	filter(s2,s3); 	//—°‘Ò—’…´¬À≤®∆˜ƒ£ Ω
+	count = 0;	//ÁªüËÆ°ËÑâÂÜ≤Êï∞Ê∏ÖÈõ∂
+	flag++;		//ËæìÂá∫‰ø°Âè∑ËÆ°Êï∞Ê†áÂøó+1ÔºåËøõË°å‰∏ã‰∏Ä‰∏™È¢úËâ≤ÁöÑËÑâÂÜ≤ÁªüËÆ°
+	filter(s2,s3); 	//ÈÄâÊã©È¢úËâ≤Êª§Ê≥¢Âô®Ê®°Âºè
 }
-
 /* USER CODE END 1 */
 
 /** Configure pins as
@@ -75,19 +75,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
-
-  /*Configure GPIO pins : PB0 PB1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /* Color Sensor */
-
-    /*Configure GPIO pin Output Level */
-  // HAL_GPIO_WritePin(GPIOH, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOH, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
@@ -95,11 +83,10 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);
 
-
-    /*Configure GPIO pins : PH4 PH5 */
+  /*Configure GPIO pins : PH4 PH5 */
   GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
@@ -111,19 +98,14 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB0 PB1 PB2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-	
-	GPIO_InitStruct.Pin = GPIO_PIN_2;
-	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 2 */
 
 /* USER CODE END 2 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

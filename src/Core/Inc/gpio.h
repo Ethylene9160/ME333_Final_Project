@@ -1,27 +1,28 @@
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * File Name          : gpio.h
-  * Description        : This file contains all the functions prototypes for
-  *                      the gpio
+  * @file    gpio.h
+  * @brief   This file contains all the function prototypes for
+  *          the gpio.c file
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
-
+/* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __gpio_H
-#define __gpio_H
+#ifndef __GPIO_H__
+#define __GPIO_H__
+
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,28 +49,18 @@
 #define LED_OFF HAL_GPIO_WritePin(GPIOB,GPIO_PIN_2,0)
 #define LED_ON  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_2,1)
 
-
-
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);
-void filter(int s2, int s3);
-void TCS_Next(int s2, int s3);
+
 /* USER CODE BEGIN Prototypes */
+
+void TCS_Next(int s1, int s2);
 
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ pinoutConfig_H */
+#endif /*__ GPIO_H__ */
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

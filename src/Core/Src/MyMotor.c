@@ -34,8 +34,8 @@ void piControl(MyMotor* this){
     // }else if(this->targetV < this->pider->currentV){
     //     this->pider->currentV -= step;
     // }
-    // this->pider->currentV = this->targetV;
-    // return; 
+    this->pider->currentV = this->targetV;
+    return; 
     float error = this->targetV - this->pider->currentV;
     this->pider->SumError += error;
     this->pider->currentV = this->pider->P * error + this->pider->I * this->pider->SumError;
@@ -71,6 +71,7 @@ void Turn_Right(float v){
   baseMove(v, v, -v, -v);
 }
 
+//default: 1s.
 void Move(){
   //int i;
   // for(i = 0; i < 4; i++){
@@ -80,6 +81,7 @@ void Move(){
   Base_Motor_Rotate(&leftbackwardMotor);
   Base_Motor_Rotate(&rightforwardMotor);
   Base_Motor_Rotate(&rightbackwardMotor);
+  // TimeMove(1000);
 }
 
 void TimeMove(int time){
@@ -108,11 +110,11 @@ void Stop(){
 }
 
 void Base_Motor_Rotate(MyMotor*const motor){
-    int i;
-    for(i = 0; i < 40; ++i){
-        piControl(motor);
-        My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 20);
-    }
+    // int i;
+    // for(i = 0; i < 40; ++i){
+    //     piControl(motor);
+    //     My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 20);
+    // }
     // In fact, we do not have any speed encoder, 
     // so after the motor is rotated, we need to force set the current velosity
     // to the target velosity, 
@@ -121,21 +123,22 @@ void Base_Motor_Rotate(MyMotor*const motor){
     My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 200);
 }
 
+//Deprecated
 void private_Base_Motor_Rotate(MyMotor*const motor, int time){
-    int i;
-    int period = 20;
-    int i_max = time / period-4;
+    // int i;
+    // int period = 20;
+    // int i_max = time / period-4;
     
-    for(i = 0; i < i_max; ++i){
-        piControl(motor);
-        My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), period);
-    }
+    // for(i = 0; i < i_max; ++i){
+    //     piControl(motor);
+    //     My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), period);
+    // }
     // In fact, we do not have any speed encoder, 
     // so after the motor is rotated, we need to force set the current velosity
     // to the target velosity, 
     // and leave enough time for the motor to run into the stable state.
     motor->pider->currentV = motor->targetV;
-    My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), period<<2);
+    My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), time);
 }
 
 void My_Motor_Rotate(MyMotor*const motor, int pwm, int time){
