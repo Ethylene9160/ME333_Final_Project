@@ -19,11 +19,11 @@ uint8_t digitalRead(MyDetector *detector){
 }
 
 void initAllDetectors(){
-  initDetector(&leftleftDetector, LEFTLEFT, GPIOB);
-  initDetector(&leftmiddleDetector, LEFTMIDDLE,GPIOA);
-  initDetector(&middlemiddleDetector,MIDDLEMIDDLE ,GPIOA);
-  initDetector(&rightmiddleDetector, RIGHTMIDDLE,GPIOB);
-  initDetector(&rightrightDetector, RIGHTRIGHT,GPIOB);
+  initDetector(&leftleftDetector, GPIO_PIN_4, GPIOB);
+  initDetector(&leftmiddleDetector, GPIO_PIN_6,GPIOA);
+  initDetector(&middlemiddleDetector,GPIO_PIN_7 ,GPIOA);
+  initDetector(&rightmiddleDetector, GPIO_PIN_8,GPIOB);
+  initDetector(&rightrightDetector, GPIO_PIN_6,GPIOB);
 }
 
 //先读内侧，再往外读取。

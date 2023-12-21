@@ -23,16 +23,37 @@
 #include "usart.h"
 #include "gpio.h"
 
-
-
 /* Private includes ----------------------------------------------------------*/
-
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
-#include "PID.h"
+
 #include "MyMotor.h"
 #include "MyDetector.h"
+#include "PID.h"
 /* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
+MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmiddleDetector, rightrightDetector;
+PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
@@ -41,10 +62,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-MyMotor leftforwardMotor, leftbackwardMotor, rightforwardMotor, rightbackwardMotor;
-MyMotor *motors[] = {&leftforwardMotor, &leftbackwardMotor, &rightforwardMotor, &rightbackwardMotor};
-PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider;
-MyDetector leftleftDetector, leftmiddleDetector, middlemiddleDetector, rightmiddleDetector, rightrightDetector;
 
 extern int flag;
 extern int count;
@@ -52,8 +69,6 @@ extern int cnt[3];
 float RGB_Scale[3];		//储存3个RGB比例因子
 
 /* USER CODE END 0 */
-
-uint8_t isEnd();
 
 /**
   * @brief  The application entry point.
@@ -83,21 +98,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
-  // MX_GPIO_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
-  // MX_USART1_UART_Init();
-  
-  //这里还没init好，为了避免引脚冲突，先注释掉。
-  
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  HAL_TIM_Base_Start_IT(&htim1);	//使能定时器1
+	
+	
+	
+	HAL_TIM_Base_Start_IT(&htim1);	//使能定时器1
 	HAL_TIM_Base_Start(&htim2);	//使能定时器2
-
-  //选择2%的输出比例因子
+	
+	//选择2%的输出比例因子
 	S0_L;
 	S1_H;
 	
@@ -119,25 +130,15 @@ int main(void)
 	}
 	printf("White Balance Done!\r\n");
 	//白平衡结束
-
-	initAllMotors();
-  initAllDetectors();
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   while (1)
   {
-    
-    /*运动功能测试结束*/
-    //如果上面的测试没有问题，那么注释掉上面的测试代码。
-    //然后，在接好寻线传感器并正确配置引脚的情况下，将下面的注释取消，开始测试寻线。
-    
-    /* USER CODE BEGIN 3 */
-
-    /* 色彩传感器的测试 */
-    flag = 0;
+    /* USER CODE END WHILE */
+		flag = 0;
 		count = 0;
 //		printf("while loop is running!\r\n");
 		HAL_Delay(3000);
@@ -152,22 +153,8 @@ int main(void)
 			else
 				printf("%d, ", (int) (cnt[i]*RGB_Scale[i]));
 		}
-    /* 色彩传感器测试结束 */
-
-
-    /* 寻线传感器测试 */
-
-    detectMove();
-    // Turn_Left();
-    // Finally, DO NOT FORGET TO CALL Move() or TimeMove() function to activate the motors.
-    Move();
-    //TimeMove(500);
-		/* 巡线传感器测试结束 */
-		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
-		// HAL_Delay(2000);
-		if(isEnd()){
-      break;
-    }
+		
+    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -220,9 +207,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_USART2;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USART1;
   PeriphClkInitStruct.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
-  PeriphClkInitStruct.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -230,10 +216,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-uint8_t isEnd(){
-  // todo: 根据颜色传感器判断是否走到了终点。
-  return 0;
-}
 
 /* USER CODE END 4 */
 
@@ -245,13 +227,9 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  //报错也给我跑！！！
-  main();
+
   /* USER CODE END Error_Handler_Debug */
 }
-
-
-
 
 #ifdef  USE_FULL_ASSERT
 /**
@@ -268,8 +246,6 @@ void assert_failed(uint8_t *file, uint32_t line)
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
-
-
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

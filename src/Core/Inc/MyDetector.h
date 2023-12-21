@@ -1,5 +1,7 @@
 #ifndef MY_DETECTOR_H
 #define MY_DETECTOR_H 1
+// #endif
+// #ifdef MY_DETECTOR_H
 #include "main.h"
 #include "MyMotor.h"
 #include "stm32f767xx.h"

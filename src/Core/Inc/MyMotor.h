@@ -1,6 +1,8 @@
 
 #ifndef MY_MOTOR
 #define MY_MOTOR 1
+// #endif
+// #ifdef MY_MOTOR
 #include "usart.h"
 #include "gpio.h"
 #include"PID.h"
