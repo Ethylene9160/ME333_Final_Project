@@ -64,11 +64,19 @@ void Turn_Back(float v){
 }
 
 void Turn_Left(float v){
-  baseMove(-v, -v, v, v);
+  baseMove(0.5*v, 0.5*v, 1.1*v, 1.1*v);
+}
+
+void Turn_Large_Left(float v){
+  baseMove(-0.6*v, -0.6*v, v, v);
+}
+
+void Turn_Large_Right(float v){
+  baseMove(-0.6*v, -0.6*v, v, v);
 }
 
 void Turn_Right(float v){
-  baseMove(v, v, -v, -v);
+  baseMove(1.1*v, 1.1*v, 0.5*v, 0.5*v);
 }
 
 //default: 1s.
@@ -95,9 +103,9 @@ int v2pwm(float v){
   //todo: override this function.
   
   if(v > 0){
-    return 1400+(int)(v*100);
+    return 1400+(int)(v*255);
   }else if(v < 0){
-    return 1400+(int)(v*100);
+    return 1400+(int)(v*255);
   }
   return 1400;
 }
@@ -121,6 +129,10 @@ void Base_Motor_Rotate(MyMotor*const motor){
     // and leave enough time for the motor to run into the stable state.
     motor->pider->currentV = motor->targetV;
     My_Motor_Rotate(motor, v2pwm(motor->pider->currentV), 200);
+}
+
+void diffMove(float vl, float vr){
+  baseMove(vl,vl,vr,vr);
 }
 
 //Deprecated

@@ -13,9 +13,25 @@ void initDetector(MyDetector *detector, uint32_t pin, GPIO_TypeDef* port){
     HAL_GPIO_Init(detector->port, &GPIO_InitStruct);
 }
 
-uint8_t digitalRead(MyDetector *detector){
-    //捕获高电平
-    return HAL_GPIO_ReadPin(detector->port, detector->pin);
+inline uint8_t digitalRead(MyDetector *detector){
+    //锟斤拷锟斤拷叩锟狡?
+    // GPIO_PinState bitstatus;
+
+    /* Check the parameters */
+    //assert_param(IS_GPIO_PIN(GPIO_Pin));
+    return (detector->port->IDR & detector->pin) != (uint32_t)GPIO_PIN_RESET;
+
+    // if((detector->port->IDR & detector->pin) != (uint32_t)GPIO_PIN_RESET)
+    // {
+    //   bitstatus = GPIO_PIN_SET;
+    // }
+    // else
+    // {
+    //   bitstatus = GPIO_PIN_RESET;
+    // }
+    // return bitstatus;
+
+    //return HAL_GPIO_ReadPin(detector->port, detector->pin);
 }
 
 void initAllDetectors(){
@@ -32,92 +48,81 @@ uint8_t isLarge(uint8_t a, uint8_t b){
   return (B&(!C)&(!D))|(A&(!C))|(A&B&(!D));  
 }
 
-//先读内侧，再往外读取。
+//锟饺讹拷锟节侧，锟斤拷锟斤拷锟斤拷锟饺★拷锟紸
 void detectMove(){
+  uint8_t ll = !digitalRead(&leftleftDetector);
+  uint8_t lm = !digitalRead(&leftmiddleDetector);
+  uint8_t mm = !digitalRead(&middlemiddleDetector);
+  uint8_t rm = !digitalRead(&rightmiddleDetector);
+  uint8_t rr = !digitalRead(&rightrightDetector);
   // uint8_t flag = 0b00000;
-  // flag = flag | (digitalRead(&leftleftDetector)<<4);
-  // flag = flag | (digitalRead(&leftmiddleDetector) << 3);
-  // flag = flag | (digitalRead(&middlemiddleDetector) << 2);
-  // flag = flag | (digitalRead(&rightmiddleDetector) << 1);
-  // flag = flag | (digitalRead(&rightrightDetector));
-  // printf("flag: %d\n", flag);
-
-  // //直接在寄存器层面操作，提高运算效率。
-  // uint8_t leftFlag = flag>>3;       //保留最高位和次高位（左边两个传感器）
-  // uint8_t rightFlag = flag&0b00011; //保留最低位和次低位（右边两个传感器）
-
-  uint8_t leftFlag = digitalRead(&leftmiddleDetector);       //保留最高位和次高位（左边两个传感器）
-  leftFlag = leftFlag | (digitalRead(&leftleftDetector)<<1);
-  uint8_t rightFlag = digitalRead(&rightrightDetector); //保留最低位和次低位（右边两个传感器）
-  rightFlag = rightFlag | (digitalRead(&rightmiddleDetector)<<1);
-  if(isLarge(leftFlag, rightFlag)){
-    //左转
-    Turn_Left(2.0);
-  }else if(isLarge(rightFlag, leftFlag)){
-    //右转
-    Turn_Right(2.0);
+  // flag |= ll <<4;
+  // flag |= lm <<3;
+  // flag |= mm <<2;
+  // flag |= rm <<1;
+  // flag |= rr;
+  if(mm){
+    Forward(4.0);
+  }else if(lm){
+    diffMove(2.0,3.6);
+  }else if(ll){
+    diffMove(1.7,3.5);
+  }else if(rm){
+    diffMove(4.0,2.8);
+  }else if(rr){
+    diffMove(3.8,2.1);
   }else{
-    //直走
-    Forward(2.0);
+    diffMove(3.0,-1.26);
   }
-  // if(leftFlag && !rightFlag){
-  //   //左转
-  //   Turn_Left(2.0);
-  // }else if(!leftFlag && rightFlag){
-  //   //右转
-  //   Turn_Right(2.0);
-  // }else{
-  //   //直走
-  //   Forward(2.0);
+  // switch (flag)
+  // {
+  // case 0b00001:
+  //   diffMove(2.2,-1.25);
+  //   break;
+  // case 0b00010:
+  // case 0b00011:
+  //   diffMove(3.5,1.9);
+  //   break;
+  // //case 0b00010:
+  // case 0b00110:
+  // case 0b00111:
+  //   diffMove(3.5,2.25);
+  //   break;
+  // case 0b00100:
+  //   Forward(3.5);
+  // case 0b
+  // default:
+  //   break;
   // }
-  return;
-  switch (flag)
-  {
-  case 0b00000:
-  case 0b00100:
-  case 0b01110:
-  case 0b11111:
-  case 0b01010:
-  case 0b10001:
-  case 0b11011:
-    //直走
-    Forward(2.0);
-    break;
-  case 0b00001:
-  case 0b00011:
-  case 0b00001:
-    //左转
-    Turn_Left(2.0);
-    Turn_Left(2.0);
-    break;
-  case 0b01000:
-  case 0b11000:
-  case 0b10000:
-    Turn_Right(2.0);
-    break;
-  default:
-    //直走
-    Forward(2.0);
-    break;
-  }
-
-  // if (digitalRead(&middlemiddleDetector) == FLAG){
-  //   //前进
-  //   Forward(2.0);
-  // }else if (digitalRead(&leftmiddleDetector) == FLAG){
-  //   //左转
-  //   Turn_Left(2.0);
-  // }else if (digitalRead(&rightmiddleDetector) == FLAG){
-  //   //右转
-  //   Turn_Right(2.0);
-  // }else if (digitalRead(&leftleftDetector) == FLAG){
-  //   //左转
-  //   Turn_Left(2.0);
-  // }else if (digitalRead(&rightrightDetector) == FLAG){
-  //   //右转
-  //   Turn_Right(2.0);
-  // }else{
-  //   //直走
-  //   Forward(2.0);
+  // if(digitalRead(&middlemiddleDetector)){
+  //   if(digitalRead(&rightmiddleDetector)){
+  //     diffMove(2.2,3.5);
+  //   }else if(digitalRead(&leftmiddleDetector)){
+  //     diffMove(3.5,2.2);
+  //   }else{
+  //     Forward(3.5);
+  //   }
+  // }
+  // else if(digitalRead(&rightrightDetector)){
+  //   if(digitalRead(&rightmiddleDetector)){
+  //     diffMove(3.3,1.5);
+  //   }else{
+  //     diffMove(1.55,-1.32);
+  //   }
+  // }else if(digitalRead(&leftleftDetector)){
+  //   if(digitalRead(&leftmiddleDetector)){
+  //     diffMove(1.5,3.3);
+  //   }else{
+  //     diffMove(-1.32,1.55);
+  //   }
+  // }
+  // else{
+  //   if(digitalRead(&rightmiddleDetector)){
+  //     diffMove(3.3,1.8);
+  //   }else if(digitalRead(&leftmiddleDetector)){
+  //     diffMove(1.8,3.3);
+  //   }else{
+  //     diffMove(2.0,-1.25);
+  //   }
   // }
 }

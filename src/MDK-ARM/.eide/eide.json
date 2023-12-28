@@ -56,6 +56,9 @@
                     "path": "../Core/Src/stm32f7xx_it.c"
                   },
                   {
+                    "path": "../Core/Src/system_stm32f7xx.c"
+                  },
+                  {
                     "path": "../Core/Src/tim.c"
                   },
                   {
@@ -73,70 +76,70 @@
         "files": [],
         "folders": [
           {
+            "name": "CMSIS",
+            "files": [
+              {
+                "path": "../Core/Src/system_stm32f7xx.c"
+              }
+            ],
+            "folders": []
+          },
+          {
             "name": "STM32F7xx_HAL_Driver",
             "files": [
               {
                 "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c"
               },
               {
                 "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c"
-              },
-              {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c"
               },
               {
                 "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c"
+              },
+              {
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c"
               },
               {
                 "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c"
               },
               {
-                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c"
-              }
-            ],
-            "folders": []
-          },
-          {
-            "name": "CMSIS",
-            "files": [
-              {
-                "path": "../Core/Src/system_stm32f7xx.c"
+                "path": "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c"
               }
             ],
             "folders": []
@@ -301,8 +304,7 @@
           "../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy",
           "../Drivers/CMSIS/Device/ST/STM32F7xx/Include",
           "../Drivers/CMSIS/Include",
-          "RTE/_Motor-Test-1",
-          ".eide/deps"
+          "RTE/_Motor-Test-1"
         ],
         "libList": [],
         "sourceDirList": [],
