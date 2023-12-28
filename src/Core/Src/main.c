@@ -42,6 +42,10 @@ PIDer leftforwardPider, leftbackwardPider, rightforwardPider, rightbackwardPider
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+// #define Move();
+// #define detectMove();
+// #define initAllDetectors();
+// #define initAllMotors();
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -177,8 +181,13 @@ int main(void)
     detectMove();
     // leftbackwardMotor.targetV = 0.0;
     // Turn_Right(2.0);
-    Move();
+    //Move();
+    TimeMove(16);
+    // Motor_Rotate(1,1                                                                                                                                           aA150,200);
 		// HAL_Delay(2000);
+    if(isEnd()){
+      break;
+    }
   }
   /* USER CODE END 3 */
 }

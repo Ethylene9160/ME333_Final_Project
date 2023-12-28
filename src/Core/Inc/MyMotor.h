@@ -7,7 +7,7 @@
 #include "gpio.h"
 #include"PID.h"
 
-#define MAX_SPEED 2.5//max speed of the car
+#define MAX_SPEED 4.0//max speed of the car
 //define the id of the 4 motors
 #define LEFT_FORWARD 2//motor of left forward
 #define RIGHT_FORWARD 1//motor of right forward
@@ -84,10 +84,14 @@ void My_Motor_Rotate(MyMotor* const motor, int pwm, int time);
  */
 void TimeMove(int time);
 
-//×¢Òâ£¬ÏÂÃæµÄËÄ¸öº¯Êý£¬Ö»»áÐÞ¸Äµç»úµÄËÙ¶È£¬²»»áÂíÉÏ×ª¶¯µç»ú¡£
+//×¢ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Þ¸Äµï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Turn_Left(float v);
 
 void Turn_Right(float v);
+
+void Turn_Large_Right(float v);
+
+void Turn_Large_Left(float v);
 
 void Turn_Back(float v);
 
@@ -95,7 +99,7 @@ void Forward(float v);
 
 void Stop();
 
-//ÐèÒªµ÷ÓÃÏÂÃæµÄº¯Êý£¬²Å»áÕæÕý×ª¶¯µç»ú¡£
+//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /**
  * @brief Call Move or TimeMove can rotate the motors.
  * Defaiult: 200s.To change this default valut, see @Base_Motor_Rotate(MyMotor*const motor).
