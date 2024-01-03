@@ -62,17 +62,28 @@ void detectMove(){
   // flag |= rm <<1;
   // flag |= rr;
   if(mm){
-    Forward(4.0);
+    // if(lm){
+    //   diffMove(1.9,3.45);
+    // }else if(rm){
+    //   diffMove(3.45,1.9);
+    // }else{
+    //   Forward(3.8);
+    // }
+    Forward(3.0);
   }else if(lm){
-    diffMove(2.0,3.6);
+    diffMove(1.6,3.0);
   }else if(ll){
-    diffMove(1.7,3.5);
+    diffMove(1.4,2.9);
   }else if(rm){
-    diffMove(4.0,2.8);
+    if(rr){
+      diffMove(3.2,1.61);
+    }else{
+      diffMove(3.6,2.45);
+    }
   }else if(rr){
-    diffMove(3.8,2.1);
+    diffMove(3.25,1.35);
   }else{
-    diffMove(3.0,-1.26);
+    diffMove(3.1,1.33);
   }
   // switch (flag)
   // {

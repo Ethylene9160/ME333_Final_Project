@@ -44,9 +44,9 @@ void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 999;
+  htim1.Init.Prescaler = 199;//original: 999
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 50000;
+  htim1.Init.Period = 50000;//50000original
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -198,7 +198,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE BEGIN 1 */
 extern int count;		
 extern int flag;	
-int cnt[3];		//储存RGB三种色的脉冲值
+int cnt[3];		//储存RGB三种色的脉冲�?
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -217,22 +217,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				break;
 		case 1:
 				//printf("RED = %d\t", count); //打印0.5s内的红色通过滤波器时，TCS3200输出的脉冲数
-				cnt[0] = count; //储存到数组
+				cnt[0] = count; //储存到数�?
 				TCS_Next(1, 1);	//下一次选择绿色光线通过滤波器的模式
 				break;
 		case 2:
 				//printf("GREEN = %d\t", count); //打印0.5s内的绿色通过滤波器时，TCS3200输出的脉冲数
-				cnt[1] = count; //储存到数组
+				cnt[1] = count; //储存到数�?
 				TCS_Next(0, 1);	//下一次选择蓝色光线通过滤波器的模式
 				break;
 		case 3:
 				//printf("BLUE = %d\r\n", count); //打印0.5s内的蓝色通过滤波器时，TCS3200输出的脉冲数
 				//printf("---TCS END!---\r\n");
-				cnt[2] = count; //储存到数组
-				TCS_Next(1, 0);	//无滤波器的模式
+				cnt[2] = count; //储存到数�?
+				TCS_Next(1, 0);	//无滤波器的模�?
+        flag = 0;
 				break;
 		default:
-				count = 0;	//计数器清零
+				count = 0;	//计数器清�?
 				break;
 			}
 		}

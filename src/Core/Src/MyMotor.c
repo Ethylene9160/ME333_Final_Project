@@ -101,13 +101,13 @@ void TimeMove(int time){
 
 int v2pwm(float v){
   //todo: override this function.
-  
-  if(v > 0){
-    return 1400+(int)(v*255);
-  }else if(v < 0){
-    return 1400+(int)(v*255);
-  }
-  return 1400;
+  return 1400+(int)(v*240.0);
+  // if(v > 0){
+  //   return 1400+(int)(v*240);
+  // }else if(v < 0){
+  //   return 1400+(int)(v*240);
+  // }
+  // return 1400;
 }
 
 void Stop(){

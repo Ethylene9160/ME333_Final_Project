@@ -78,8 +78,8 @@ uint8_t isEnd();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int is_end=0;
-int RGB_abs_min[]={210,155,80};
-int RGB_abs_max[]={1000,205,150};
+int RGB_abs_min[]={200,150,80};
+int RGB_abs_max[]={1000,300,160};
 int count_RGB=0;
 /* USER CODE END 0 */
 
@@ -125,7 +125,6 @@ int main(void)
 	S1_H;
 	
 	LED_ON;		//打开四个白色LED，进行白平衡
-	HAL_Delay(3000);		//延时三秒，等待识�?
 	
 	//通过白平衡测试，计算得到白色物的RGB�?255�?0.5秒内三色光脉冲数的RGB比例因子
 	for(int i=0;i<3;i++)
@@ -147,16 +146,19 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  initAllDetectors();
+  initAllMotors();
+  detectMove();
+	HAL_Delay(3000);		//延时三秒，等待识�?
   while (1)
   {
     /* USER CODE END WHILE */
-    flag = 0;
+    
 		count = 0;
 //	printf("while loop is running!\r\n");
 		// HAL_Delay(3000);
 		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_1);
-		initAllDetectors();
-    initAllMotors();
+
 		for(int i=0; i<3; i++)
 		{
 			if(i==0)
@@ -177,7 +179,11 @@ int main(void)
     detectMove();
     // leftbackwardMotor.targetV = 0.0;
     // Turn_Right(2.0);
-    TimeMove(20);
+    TimeMove(22);
+    if(isEnd()){
+      printf("end\r\n");
+      break;
+    }
 		//HAL_Delay(2000);
   }
   /* USER CODE END 3 */
@@ -265,7 +271,7 @@ uint8_t isEnd(){
     *(RGB_abs_min+1)  < (int)((*(cnt+1))*(*(RGB_Scale+1)))  && *(RGB_abs_max+1) >(int)((*(cnt+1))*(*(RGB_Scale+1))) &&
     *(RGB_abs_min+2)  < (int)((*(cnt+2))*(*(RGB_Scale+2)))  && *(RGB_abs_max+2) >(int)((*(cnt+2))*(*(RGB_Scale+2)))){
       counter += 1;
-      if(counter == 3){
+      if(counter == 1){
         return 1;
       }
     }else{
@@ -283,7 +289,8 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+  //����Ҳ�����ܣ�����
+  main();
   /* USER CODE END Error_Handler_Debug */
 }
 
