@@ -46,7 +46,7 @@ void initAllDetectors(){
 void detectMove(){
   if (digitalRead(&middlemiddleDetector) == FLAG){
     //ǰ��
-    Forward(3.35);
+    Forward(3.3);
   }else if (digitalRead(&leftleftDetector) == FLAG){
     //��ת
     Turn_Large_Left(2.4);
@@ -61,13 +61,13 @@ void detectMove(){
     // base_move(1,1,1,1);
   }else if (digitalRead(&rightmiddleDetector) == FLAG){
     //��ת
-    Turn_Right(2.2);
+    Turn_Right(2.6);
     // base_move(1,1,1,1);
   }else{
     //ֱ��
     //Forward(2.5);
     // baseMove(3.0,3.0,1.2,1.2);
-    baseMove(1.5,-1.5,-1.5,1.5);
+    baseMove(1.7,-1.3,-1.3,1.7);
 
   }
 }
