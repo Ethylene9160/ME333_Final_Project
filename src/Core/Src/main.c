@@ -82,8 +82,8 @@ uint8_t isEnd();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int is_end=0;
-int RGB_abs_min[]={210,200,110};
-int RGB_abs_max[]={1000,255,160};
+int RGB_abs_min[]={210,150,80};
+int RGB_abs_max[]={1000,300,160};
 int count_RGB=0;
 /* USER CODE END 0 */
 
@@ -121,31 +121,31 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
-	HAL_TIM_Base_Start_IT(&htim1);	//使能定时器1
-	HAL_TIM_Base_Start(&htim2);	//使能定时器2
+	HAL_TIM_Base_Start_IT(&htim1);	//使能定时�?1
+	HAL_TIM_Base_Start(&htim2);	//使能定时�?2
 	
-	//选择2%的输出比例因子
+	//选择2%的输出比例因�?
 	S0_L;
 	S1_H;
 	
 	LED_ON;		//打开四个白色LED，进行白平衡
-	HAL_Delay(3000);		//延时三秒，等待识别
+	HAL_Delay(3000);		//延时三秒，等待识�?
 	
-	//通过白平衡测试，计算得到白色物的RGB值255与0.5秒内三色光脉冲数的RGB比例因子
+	//通过白平衡测试，计算得到白色物的RGB�?255�?0.5秒内三色光脉冲数的RGB比例因子
 	for(int i=0;i<3;i++)
 	{
 		RGB_Scale[i] = 255.0/cnt[i];
 		printf("%5lf  \r\n", RGB_Scale[i]);
 	}
-	//红绿蓝三色光分别对应的0.5s内TCS3200输出脉冲数，乘以相应的比例因子就是我们所谓的RGB标准值
-	//打印被测物体的RGB值
+	//红绿蓝三色光分别对应�?0.5s内TCS3200输出脉冲数，乘以相应的比例因子就是我们所谓的RGB标准�?
+	//打印被测物体的RGB�?
 	
 	for(int i=0; i<3; i++)
 	{
 		printf("%d \r\n", (int) (cnt[i]*RGB_Scale[i]));
 	}
 	printf("White Balance Done!\r\n");
-	//白平衡结束
+	//白平衡结�?
 
   /* USER CODE END 2 */
 
@@ -154,7 +154,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    flag = 0;
+    //flag = 0;
 		count = 0;
 //	printf("while loop is running!\r\n");
 		// HAL_Delay(3000);
@@ -182,9 +182,9 @@ int main(void)
     // leftbackwardMotor.targetV = 0.0;
     // Turn_Right(2.0);
     //Move();
-    TimeMove(16);
+    TimeMove(20);
     // Motor_Rotate(1,1                                                                                                                                           aA150,200);
-		// HAL_Delay(2000);
+		//HAL_Delay(2000);
     if(isEnd()){
       break;
     }
@@ -247,7 +247,7 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 uint8_t Is_end(int* cnt, float* RGB_Scale){
-  static int counter = 0;//记录检测到黄色的次数。如果到达了巴拉巴拉次，再返回真，以排除误差。
+  static int counter = 0;//记录检测到黄色的次数。如果到达了巴拉巴拉次，再返回真，以排除误差�?
 	is_end=0;
 	count_RGB=0;
 	for(int i=0;i<3;i++){
@@ -267,7 +267,7 @@ uint8_t Is_end(int* cnt, float* RGB_Scale){
 	return is_end;
 }
 
-//或者使用这个函数，这个函数对指针直接取值，并采用循环展开，对单片机有更高的效率。
+//或者使用这个函数，这个函数对指针直接取值，并采用循环展开，对单片机有更高的效率�?
 uint8_t isEnd(){
   static int counter = 0;
   if(*(RGB_abs_min)   < (int)((*(cnt))*(*(RGB_Scale)))      && *(RGB_abs_max)   >(int)((*(cnt))*(*(RGB_Scale))) &&

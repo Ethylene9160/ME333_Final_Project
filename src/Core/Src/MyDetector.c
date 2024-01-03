@@ -14,7 +14,7 @@ void initDetector(MyDetector *detector, uint32_t pin, GPIO_TypeDef* port){
 }
 
 inline uint8_t digitalRead(MyDetector *detector){
-    //ï¿½ï¿½ï¿½ï¿½ßµï¿½Æ½
+    //??
     // GPIO_PinState bitstatus;
 
     /* Check the parameters */
@@ -42,26 +42,32 @@ void initAllDetectors(){
   initDetector(&rightrightDetector, GPIO_PIN_6,GPIOB);
 }
 
-//ï¿½È¶ï¿½ï¿½Ú²à£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½A
+//????A5
 void detectMove(){
   if (digitalRead(&middlemiddleDetector) == FLAG){
-    //Ç°ï¿½ï¿½
-    Forward(3.0);
+    //?
+    Forward(3.3);
   }else if (digitalRead(&leftleftDetector) == FLAG){
-    //ï¿½ï¿½×ª
-    Turn_Large_Left(1.5);
+    //?
+    Turn_Large_Left(2.4);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&rightrightDetector) == FLAG){
-    //ï¿½ï¿½×ª
-    Turn_Large_Right(1.5);
+    //?
+    Turn_Large_Right(2.4);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&leftmiddleDetector) == FLAG){
-    //ï¿½ï¿½×ª
-    Turn_Left(3);
+    //?
+    Turn_Left(2.2);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&rightmiddleDetector) == FLAG){
-    //ï¿½ï¿½×ª
-    Turn_Right(3);
+    //?
+    Turn_Right(2.6);
+    // base_move(1,1,1,1);
   }else{
-    //Ö±ï¿½ï¿½
+    //?
     //Forward(2.5);
-    baseMove(3.0,3.0,1.2,1.2);
+    // baseMove(3.0,3.0,1.2,1.2);
+    baseMove(1.7,-1.3,-1.3,1.7);
+
   }
 }
