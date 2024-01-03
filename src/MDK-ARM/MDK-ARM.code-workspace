@@ -8,7 +8,8 @@
         "files.associations": {
             "mymotor.h": "c",
             "mydetector.h": "c"
-        }
+        },
+        "stm32-for-vscode.armToolchainPath": false
     },
     "extensions": {}
 }
