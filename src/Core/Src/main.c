@@ -182,7 +182,7 @@ int main(void)
     // leftbackwardMotor.targetV = 0.0;
     // Turn_Right(2.0);
     //Move();
-    TimeMove(16);
+    TimeMove(20);//16
     // Motor_Rotate(1,1                                                                                                                                           aA150,200);
 		// HAL_Delay(2000);
     if(isEnd()){

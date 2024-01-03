@@ -64,7 +64,7 @@ void Turn_Back(float v){
 }
 
 void Turn_Left(float v){
-  baseMove(0.5*v, 0.5*v, 1.1*v, 1.1*v);
+  baseMove(0.55*v, 0.65*v, 1.5*v, 1.4*v);
 }
 
 void Turn_Large_Left(float v){
@@ -72,11 +72,11 @@ void Turn_Large_Left(float v){
 }
 
 void Turn_Large_Right(float v){
-  baseMove(-0.6*v, -0.6*v, v, v);
+  baseMove(v, v, -0.6*v, -0.6*v);
 }
 
 void Turn_Right(float v){
-  baseMove(1.1*v, 1.1*v, 0.5*v, 0.5*v);
+  baseMove(1.4*v, 1.3*v, 0.55*v, 0.65*v);
 }
 
 //default: 1s.
@@ -103,9 +103,9 @@ int v2pwm(float v){
   //todo: override this function.
   
   if(v > 0){
-    return 1400+(int)(v*250);
+    return 1400+(int)(v*270);
   }else if(v < 0){
-    return 1400+(int)(v*250);
+    return 1400+(int)(v*270);
   }
   return 1400;
 }

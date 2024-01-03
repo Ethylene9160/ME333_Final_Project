@@ -42,26 +42,32 @@ void initAllDetectors(){
   initDetector(&rightrightDetector, GPIO_PIN_6,GPIOB);
 }
 
-//�ȶ��ڲ࣬�������ȡ��A
+//�ȶ��ڲ࣬�������ȡ��A5
 void detectMove(){
   if (digitalRead(&middlemiddleDetector) == FLAG){
     //ǰ��
-    Forward(3.0);
+    Forward(3.35);
   }else if (digitalRead(&leftleftDetector) == FLAG){
     //��ת
-    Turn_Large_Left(1.5);
+    Turn_Large_Left(2.4);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&rightrightDetector) == FLAG){
     //��ת
-    Turn_Large_Right(1.5);
+    Turn_Large_Right(2.4);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&leftmiddleDetector) == FLAG){
     //��ת
-    Turn_Left(3);
+    Turn_Left(2.2);
+    // base_move(1,1,1,1);
   }else if (digitalRead(&rightmiddleDetector) == FLAG){
     //��ת
-    Turn_Right(3);
+    Turn_Right(2.2);
+    // base_move(1,1,1,1);
   }else{
     //ֱ��
     //Forward(2.5);
-    baseMove(3.0,3.0,1.2,1.2);
+    // baseMove(3.0,3.0,1.2,1.2);
+    baseMove(1.5,-1.5,-1.5,1.5);
+
   }
 }
