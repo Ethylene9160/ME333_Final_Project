@@ -7,7 +7,12 @@
     "settings": {
         "files.associations": {
             "mymotor.h": "c",
-            "mydetector.h": "c"
+            "mydetector.h": "c",
+            "gpio.h": "c",
+            "tim.h": "c",
+            "usart.h": "c",
+            "main.h": "c",
+            "pid.h": "c"
         },
         "stm32-for-vscode.armToolchainPath": false
     },

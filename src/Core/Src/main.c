@@ -82,8 +82,8 @@ uint8_t isEnd();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int is_end=0;
-int RGB_abs_min[]={210,200,110};
-int RGB_abs_max[]={1000,255,160};
+int RGB_abs_min[]={200,150,80};
+int RGB_abs_max[]={1000,300,160};
 int count_RGB=0;
 /* USER CODE END 0 */
 
@@ -154,7 +154,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    flag = 0;
 		count = 0;
 //	printf("while loop is running!\r\n");
 		// HAL_Delay(3000);
