@@ -27,13 +27,6 @@ void smoothControl(MyMotor* this, float targetV){
 }
 
 void piControl(MyMotor* this){
-    //this->pider->currentV = this->targetV;
-    // static float step = 0.1;
-    // if(this->targetV > this->pider->currentV){
-    //     this->pider->currentV += step;
-    // }else if(this->targetV < this->pider->currentV){
-    //     this->pider->currentV -= step;
-    // }
     this->pider->currentV = this->targetV;
     return; 
     float error = this->targetV - this->pider->currentV;
@@ -45,7 +38,6 @@ void piControl(MyMotor* this){
     else if(this->pider->currentV < -MAX_SPEED){
         this->pider->currentV = -MAX_SPEED;
     }
-    //
 }
 
 void baseMove(float v1, float v2, float v3, float v4){
@@ -108,6 +100,7 @@ int v2pwm(float v){
     return 1400+(int)(v*280);
   }
   return 1400;
+  // return 1400+(int)(v*280);
 }
 
 void Stop(){

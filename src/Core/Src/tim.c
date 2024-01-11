@@ -198,14 +198,14 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE BEGIN 1 */
 extern int count;		
 extern int flag;	
-int cnt[3];		//储存RGB三种色的脉冲�?
+int cnt[3];		//å‚¨å­˜RGBä¸‰ç§è‰²çš„è„‰å†²å€?
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM1){
 		
-		count = __HAL_TIM_GET_COUNTER(&htim2); //将TIM2统计的脉冲数存入count
-		__HAL_TIM_SET_COUNTER(&htim2,0);	//TIM2清零，以便下一次重新计算脉冲数
+		count = __HAL_TIM_GET_COUNTER(&htim2); //å°†TIM2ç»Ÿè®¡çš„è„‰å†²æ•°å­˜å…¥count
+		__HAL_TIM_SET_COUNTER(&htim2,0);	//TIM2æ¸…é›¶ï¼Œä»¥ä¾¿ä¸‹ä¸€æ¬¡é‡æ–°è®¡ç®—è„‰å†²æ•°
 
 //		printf("Updated!\r\n");
 		HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
@@ -216,24 +216,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				TCS_Next(0, 0);
 				break;
 		case 1:
-				//printf("RED = %d\t", count); //打印0.5s内的红色通过滤波器时，TCS3200输出的脉冲数
-				cnt[0] = count; //储存到数�?
-				TCS_Next(1, 1);	//下一次选择绿色光线通过滤波器的模式
+				//printf("RED = %d\t", count); //æ‰“å°0.5så†…çš„çº¢è‰²é€šè¿‡æ»¤æ³¢å™¨æ—¶ï¼ŒTCS3200è¾“å‡ºçš„è„‰å†²æ•°
+				cnt[0] = count; //å‚¨å­˜åˆ°æ•°ç»?
+				TCS_Next(1, 1);	//ä¸‹ä¸€æ¬¡é€‰æ‹©ç»¿è‰²å…‰çº¿é€šè¿‡æ»¤æ³¢å™¨çš„æ¨¡å¼
 				break;
 		case 2:
-				//printf("GREEN = %d\t", count); //打印0.5s内的绿色通过滤波器时，TCS3200输出的脉冲数
-				cnt[1] = count; //储存到数�?
-				TCS_Next(0, 1);	//下一次选择蓝色光线通过滤波器的模式
+				//printf("GREEN = %d\t", count); //æ‰“å°0.5så†…çš„ç»¿è‰²é€šè¿‡æ»¤æ³¢å™¨æ—¶ï¼ŒTCS3200è¾“å‡ºçš„è„‰å†²æ•°
+				cnt[1] = count; //å‚¨å­˜åˆ°æ•°ç»?
+				TCS_Next(0, 1);	//ä¸‹ä¸€æ¬¡é€‰æ‹©è“è‰²å…‰çº¿é€šè¿‡æ»¤æ³¢å™¨çš„æ¨¡å¼
 				break;
 		case 3:
-				//printf("BLUE = %d\r\n", count); //打印0.5s内的蓝色通过滤波器时，TCS3200输出的脉冲数
+				//printf("BLUE = %d\r\n", count); //æ‰“å°0.5så†…çš„è“è‰²é€šè¿‡æ»¤æ³¢å™¨æ—¶ï¼ŒTCS3200è¾“å‡ºçš„è„‰å†²æ•°
 				//printf("---TCS END!---\r\n");
-				cnt[2] = count; //储存到数�?
-				TCS_Next(1, 0);	//无滤波器的模�?
+
+				cnt[2] = count; //å‚¨å­˜åˆ°æ•°ç»„
+				TCS_Next(1, 0);	//æ— æ»¤æ³¢å™¨çš„æ¨¡å¼
+
         flag = 0;
 				break;
 		default:
-				count = 0;	//计数器清�?
+				count = 0;	//è®¡æ•°å™¨æ¸…é›?
 				break;
 			}
 		}
