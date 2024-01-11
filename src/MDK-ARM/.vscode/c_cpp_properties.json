@@ -3,12 +3,15 @@
         {
             "name": "Motor-Test-1",
             "includePath": [
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Core\\Inc\\**",
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Core\\Src\\**",
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Drivers\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\**",
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Drivers\\CMSIS\\Include\\**",
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Drivers\\STM32F7xx_HAL_Driver\\Inc\\**",
-                "C:\\Users\\阿撑\\Desktop\\机电一体化系统\\lab\\project\\ME333_Final_Project\\src\\Drivers\\STM32F7xx_HAL_Driver\\Src\\**"
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Core\\Inc",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Drivers\\STM32F7xx_HAL_Driver\\Inc",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Drivers\\STM32F7xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Drivers\\CMSIS\\Device\\ST\\STM32F7xx\\Include",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Drivers\\CMSIS\\Include",
+                "E:\\Keil51\\MDK\\ARM\\ARMCLANG\\include",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Core\\Src",
+                "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\Drivers\\STM32F7xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

@@ -70,7 +70,7 @@ void SystemClock_Config(void);
 extern int flag;
 extern int count;
 extern int cnt[3];
-float RGB_Scale[3];		//储存3个RGB比例因子
+float RGB_Scale[3];		//å‚¨å­˜3ä¸ªRGBæ¯”ä¾‹å› å­
 
 uint8_t Is_end(int* cnt,float* RGB_Scale);
 
@@ -82,7 +82,9 @@ uint8_t isEnd();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int is_end=0;
-int RGB_abs_min[]={200,150,80};
+
+int RGB_abs_min[]={210,150,80};
+
 int RGB_abs_max[]={1000,300,160};
 int count_RGB=0;
 /* USER CODE END 0 */
@@ -121,31 +123,31 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
-	HAL_TIM_Base_Start_IT(&htim1);	//使能定时器1
-	HAL_TIM_Base_Start(&htim2);	//使能定时器2
+	HAL_TIM_Base_Start_IT(&htim1);	//ä½¿èƒ½å®šæ—¶å™?1
+	HAL_TIM_Base_Start(&htim2);	//ä½¿èƒ½å®šæ—¶å™?2
 	
-	//选择2%的输出比例因子
+	//é€‰æ‹©2%çš„è¾“å‡ºæ¯”ä¾‹å› å­?
 	S0_L;
 	S1_H;
 	
-	LED_ON;		//打开四个白色LED，进行白平衡
-	HAL_Delay(3000);		//延时三秒，等待识别
+	LED_ON;		//æ‰“å¼€å››ä¸ªç™½è‰²LEDï¼Œè¿›è¡Œç™½å¹³è¡¡
+	HAL_Delay(3000);		//å»¶æ—¶ä¸‰ç§’ï¼Œç­‰å¾…è¯†åˆ?
 	
-	//通过白平衡测试，计算得到白色物的RGB值255与0.5秒内三色光脉冲数的RGB比例因子
+	//é€šè¿‡ç™½å¹³è¡¡æµ‹è¯•ï¼Œè®¡ç®—å¾—åˆ°ç™½è‰²ç‰©çš„RGBå€?255ä¸?0.5ç§’å†…ä¸‰è‰²å…‰è„‰å†²æ•°çš„RGBæ¯”ä¾‹å› å­
 	for(int i=0;i<3;i++)
 	{
 		RGB_Scale[i] = 255.0/cnt[i];
 		printf("%5lf  \r\n", RGB_Scale[i]);
 	}
-	//红绿蓝三色光分别对应的0.5s内TCS3200输出脉冲数，乘以相应的比例因子就是我们所谓的RGB标准值
-	//打印被测物体的RGB值
+	//çº¢ç»¿è“ä¸‰è‰²å…‰åˆ†åˆ«å¯¹åº”çš?0.5så†…TCS3200è¾“å‡ºè„‰å†²æ•°ï¼Œä¹˜ä»¥ç›¸åº”çš„æ¯”ä¾‹å› å­å°±æ˜¯æˆ‘ä»¬æ‰€è°“çš„RGBæ ‡å‡†å€?
+	//æ‰“å°è¢«æµ‹ç‰©ä½“çš„RGBå€?
 	
 	for(int i=0; i<3; i++)
 	{
 		printf("%d \r\n", (int) (cnt[i]*RGB_Scale[i]));
 	}
 	printf("White Balance Done!\r\n");
-	//白平衡结束
+	//ç™½å¹³è¡¡ç»“æ?
 
   /* USER CODE END 2 */
 
@@ -154,6 +156,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
 		count = 0;
 //	printf("while loop is running!\r\n");
 		// HAL_Delay(3000);
@@ -181,9 +184,11 @@ int main(void)
     // leftbackwardMotor.targetV = 0.0;
     // Turn_Right(2.0);
     //Move();
+
     TimeMove(20);//16
+
     // Motor_Rotate(1,1                                                                                                                                           aA150,200);
-		// HAL_Delay(2000);
+		//HAL_Delay(2000);
     if(isEnd()){
       break;
     }
@@ -246,7 +251,7 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 uint8_t Is_end(int* cnt, float* RGB_Scale){
-  static int counter = 0;//记录检测到黄色的次数。如果到达了巴拉巴拉次，再返回真，以排除误差。
+  static int counter = 0;//è®°å½•æ£€æµ‹åˆ°é»„è‰²çš„æ¬¡æ•°ã€‚å¦‚æžœåˆ°è¾¾äº†å·´æ‹‰å·´æ‹‰æ¬¡ï¼Œå†è¿”å›žçœŸï¼Œä»¥æŽ’é™¤è¯¯å·®ã€?
 	is_end=0;
 	count_RGB=0;
 	for(int i=0;i<3;i++){
@@ -266,7 +271,7 @@ uint8_t Is_end(int* cnt, float* RGB_Scale){
 	return is_end;
 }
 
-//或者使用这个函数，这个函数对指针直接取值，并采用循环展开，对单片机有更高的效率。
+//æˆ–è€…ä½¿ç”¨è¿™ä¸ªå‡½æ•°ï¼Œè¿™ä¸ªå‡½æ•°å¯¹æŒ‡é’ˆç›´æŽ¥å–å€¼ï¼Œå¹¶é‡‡ç”¨å¾ªçŽ¯å±•å¼€ï¼Œå¯¹å•ç‰‡æœºæœ‰æ›´é«˜çš„æ•ˆçŽ‡ã€?
 uint8_t isEnd(){
   static int counter = 0;
   if(*(RGB_abs_min)   < (int)((*(cnt))*(*(RGB_Scale)))      && *(RGB_abs_max)   >(int)((*(cnt))*(*(RGB_Scale))) &&
