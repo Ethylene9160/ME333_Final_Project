@@ -7,17 +7,6 @@
     ├─Core
     │  ├─Inc
     │  └─Src
-    ├─Drivers
-    │  ├─CMSIS
-    │  │  ├─Device
-    │  │  │  └─ST
-    │  │  │      └─STM32F7xx
-    │  │  │          └─Include
-    │  │  └─Include
-    │  └─STM32F7xx_HAL_Driver
-    │      ├─Inc
-    │      │  └─Legacy
-    │      └─Src
     └─MDK-ARM
         ├─.cmsis
         │  └─include
