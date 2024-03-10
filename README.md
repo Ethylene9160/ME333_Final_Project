@@ -4,24 +4,7 @@
 ## 项目结构
 ```bash
 └─src
-    ├─Core
-    │  ├─Inc
-    │  └─Src
-    └─MDK-ARM
-        ├─.cmsis
-        │  └─include
-        ├─.eide
-        ├─.vscode
-        ├─build
-        │  └─Motor-Test-1
-        │      └─__
-        │          ├─Core
-        │          │  └─Src
-        │          └─Drivers
-        │              └─STM32F7xx_HAL_Driver
-        │                  └─Src
-        ├─DebugConfig
-        ├─Motor-Test-1
-        └─RTE
-            └─_Motor-Test-1
+    └─Core
+       ├─Inc
+       └─Src
 ```
