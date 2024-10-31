@@ -82,8 +82,8 @@ uint8_t isEnd();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int is_end=0;
-int RGB_abs_min[]={210,150,80};
-int RGB_abs_max[]={1000,300,160};
+int RGB_abs_min[]={210,160,90};
+int RGB_abs_max[]={1000,230,150};
 int count_RGB=0;
 /* USER CODE END 0 */
 
@@ -185,7 +185,7 @@ int main(void)
     TimeMove(20);
     // Motor_Rotate(1,1                                                                                                                                           aA150,200);
 		//HAL_Delay(2000);
-    if(isEnd()){
+   if(isEnd()){
       break;
     }
   }
@@ -269,7 +269,7 @@ uint8_t Is_end(int* cnt, float* RGB_Scale){
 
 //或者使用这个函数，这个函数对指针直接取值，并采用循环展开，对单片机有更高的效率�?
 uint8_t isEnd(){
-  static int counter = 0;
+  static int counter = 3;
   if(*(RGB_abs_min)   < (int)((*(cnt))*(*(RGB_Scale)))      && *(RGB_abs_max)   >(int)((*(cnt))*(*(RGB_Scale))) &&
     *(RGB_abs_min+1)  < (int)((*(cnt+1))*(*(RGB_Scale+1)))  && *(RGB_abs_max+1) >(int)((*(cnt+1))*(*(RGB_Scale+1))) &&
     *(RGB_abs_min+2)  < (int)((*(cnt+2))*(*(RGB_Scale+2)))  && *(RGB_abs_max+2) >(int)((*(cnt+2))*(*(RGB_Scale+2)))){
