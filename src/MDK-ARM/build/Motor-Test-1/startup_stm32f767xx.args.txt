@@ -1,0 +1,1 @@
+-I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -IRTE/_Motor-Test-1 -I.eide/deps --cpu Cortex-M7.fp.dp --li --pd "__MICROLIB SETA 1" -g -o ./build/Motor-Test-1/startup_stm32f767xx.o --depend ./build/Motor-Test-1/startup_stm32f767xx.d ./startup_stm32f767xx.s

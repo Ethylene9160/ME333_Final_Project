@@ -1,0 +1,19 @@
+>>> cc
+
+In file included from ./../Core/Src/main.c:21:
+In file included from ../Core/Inc\main.h:31:
+In file included from ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal.h:29:
+In file included from ../Core/Inc\stm32f7xx_hal_conf.h:270:
+In file included from ../Drivers/STM32F7xx_HAL_Driver/Inc\stm32f7xx_hal_rcc.h:27:
+In file included from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:30:
+../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:3994:9: warning: 'ART_ACCLERATOR_ENABLE' macro redefined [-Wmacro-redefined]
+#define ART_ACCLERATOR_ENABLE ART_ACCELERATOR_ENABLE
+        ^
+../Core/Inc\stm32f7xx_hal_conf.h:151:10: note: previous definition is here
+#define  ART_ACCLERATOR_ENABLE        1U /* To enable instruction cache and prefetch */
+         ^
+1 warning generated.
+
+>>> ld
+
+Program Size: Code=13440 RO-data=592 RW-data=44 ZI-data=1708  

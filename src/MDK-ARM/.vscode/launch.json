@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "stlink",
+            "servertype": "openocd",
+            "executable": "build\\Motor-Test-1\\Motor-Test-1.elf",
+            "runToEntryPoint": "main",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/<target-name>.cfg"
+            ]
+        }
+    ]
+}

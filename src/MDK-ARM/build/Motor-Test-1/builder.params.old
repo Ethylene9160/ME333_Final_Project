@@ -1,0 +1,124 @@
+{
+    "name": "Motor-Test-1",
+    "target": "Motor-Test-1",
+    "toolchain": "AC6",
+    "toolchainLocation": "E:\\Keil\\ARM\\ARMCLANG",
+    "toolchainCfgFile": "c:\\Users\\季吉安\\.vscode\\extensions\\cl.eide-3.13.2023060401\\res\\data\\models\\win32/arm.v6.model.json",
+    "buildMode": "fast|multhread",
+    "showRepathOnLog": true,
+    "threadNum": 16,
+    "rootDir": "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM",
+    "dumpPath": "build\\Motor-Test-1",
+    "outDir": "build\\Motor-Test-1",
+    "ram": 524288,
+    "rom": 1048576,
+    "incDirs": [
+        "../Core/Inc",
+        "../Drivers/STM32F7xx_HAL_Driver/Inc",
+        "../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy",
+        "../Drivers/CMSIS/Device/ST/STM32F7xx/Include",
+        "../Drivers/CMSIS/Include",
+        "RTE/_Motor-Test-1",
+        ".eide/deps"
+    ],
+    "libDirs": [],
+    "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F767xx"
+    ],
+    "sourceList": [
+        "../Core/Src/MyDetector.c",
+        "../Core/Src/MyMotor.c",
+        "../Core/Src/PID.c",
+        "../Core/Src/gpio.c",
+        "../Core/Src/main.c",
+        "../Core/Src/stm32f7xx_hal_msp.c",
+        "../Core/Src/stm32f7xx_it.c",
+        "../Core/Src/system_stm32f7xx.c",
+        "../Core/Src/tim.c",
+        "../Core/Src/usart.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c",
+        "../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c",
+        "startup_stm32f767xx.s"
+    ],
+    "sourceParams": {},
+    "sourceParamsMtime": 1704286076465.6213,
+    "options": {
+        "version": 3,
+        "beforeBuildTasks": [],
+        "afterBuildTasks": [],
+        "global": {
+            "use-microLIB": true,
+            "output-debug-info": "enable",
+            "microcontroller-cpu": "cortex-m7-dp",
+            "microcontroller-fpu": "cortex-m7-dp",
+            "microcontroller-float": "cortex-m7-dp",
+            "target": "cortex-m7-dp"
+        },
+        "c/cpp-compiler": {
+            "optimization": "level-image-size",
+            "language-c": "c99",
+            "language-cpp": "c++11",
+            "link-time-optimization": false,
+            "one-elf-section-per-function": true,
+            "short-enums#wchar": true,
+            "warnings": "ac5-like-warnings"
+        },
+        "asm-compiler": {
+            "$use": "asm-auto"
+        },
+        "linker": {
+            "output-format": "elf",
+            "misc-controls": "--diag_suppress=L6329",
+            "xo-base": "",
+            "ro-base": "0x08000000",
+            "rw-base": "0x20000000",
+            "link-scatter": [
+                "\"d:/Sustech/2023Autumn/机电一体化系统设计/ME333_Final_Project/src/MDK-ARM/build/Motor-Test-1/Motor-Test-1.sct\""
+            ]
+        }
+    },
+    "env": {
+        "workspaceFolder": "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM",
+        "workspaceFolderBasename": "MDK-ARM",
+        "OutDir": "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM\\build\\Motor-Test-1",
+        "OutDirRoot": "build",
+        "OutDirBase": "build\\Motor-Test-1",
+        "ProjectName": "Motor-Test-1",
+        "ConfigName": "Motor-Test-1",
+        "ProjectRoot": "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM",
+        "ExecutableName": "d:\\Sustech\\2023Autumn\\机电一体化系统设计\\ME333_Final_Project\\src\\MDK-ARM\\build\\Motor-Test-1\\Motor-Test-1",
+        "SYS_Platform": "win32",
+        "SYS_DirSep": "\\",
+        "SYS_DirSeparator": "\\",
+        "SYS_PathSep": ";",
+        "SYS_PathSeparator": ";",
+        "SYS_EOL": "\r\n",
+        "ToolchainRoot": "E:\\Keil\\ARM\\ARMCLANG"
+    },
+    "sha": {
+        "c/cpp-defines": "b88e8139a564250958bfb9400ef6f612",
+        "beforeBuildTasks": "d751713988987e9331980363e24189ce",
+        "afterBuildTasks": "d751713988987e9331980363e24189ce",
+        "global": "cac9ebb7f9962eedc2224bd91a5b3174",
+        "c/cpp-compiler": "9823fd5285322e2d57b9f20d39e56f44",
+        "asm-compiler": "f16bc066fd83f6b0cf6cd2b7eea65136",
+        "linker": "ee98ece5478a358ca410d0f55ca92cf2"
+    }
+}
